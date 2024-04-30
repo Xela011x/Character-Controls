@@ -1,12 +1,32 @@
+using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Movement : MonoBehaviour
 {
+    [Header("Camera Views")]
+    [SerializeField] private cameraView currentView = cameraView.FreeLook;
+    private int number;
+    private enum cameraView
+    {
+        FreeLook,
+        FirstPerson,
+        ThirdPerson,
+        TOTAL_ENUM
+    }
+
     [Header("Movements")]
     [SerializeField] private float turnSmoothTime = 0.15f;
-    [SerializeField] private float speed = 250.0f;
+    private float turnSmoothVelocity;
+    [SerializeField] private float runSmoothTime = 0.5f;
+    private float runSmoothVelocity;
+    [SerializeField] private float walkSmoothTime = 0.15f;
+    private float walkSmoothVelocity;
+    [Space(10)]
+    [SerializeField] private float currentSpeed;
+    [SerializeField] private float walkSpeed = 250.0f;
+    [SerializeField] private float runSpeed = 500.0f;
     [SerializeField] private float jumpPower = 10.0f;
     [SerializeField] private float jumpDelay = 0.0f;
 
@@ -27,9 +47,11 @@ public class Movement : MonoBehaviour
 
     [Header("Others")]
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private CinemachineFreeLook freeLookCam;
+    [SerializeField] private CinemachineVirtualCamera firstPersonCam;
+    [SerializeField] private CinemachineFreeLook thirdPersonCam;
     [SerializeField] private Rigidbody rgb;
     private Vector3 moveDir;
-    private float turnSmoothVelocity;
 
     private void Start()
     {
@@ -37,6 +59,11 @@ public class Movement : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        currentView = cameraView.FreeLook;
+        freeLookCam.enabled = true;
+        firstPersonCam.enabled = false;
+        thirdPersonCam.enabled = false;
     }
 
     private void Update()
@@ -53,21 +80,54 @@ public class Movement : MonoBehaviour
 
     private void MovementControls()
     {
+        // WASD Inputs
         moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
+        // Hotkey for switching camera view
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            currentView = (cameraView) (number++ % (int)cameraView.TOTAL_ENUM);
+            
+            switch (currentView)
+            {
+                case cameraView.FreeLook:
+                    freeLookCam.enabled = true;
+
+                    firstPersonCam.enabled = false;
+                    thirdPersonCam.enabled = false;
+                    break;
+                case cameraView.FirstPerson:
+                    firstPersonCam.enabled = true;
+
+                    freeLookCam.enabled = false;
+                    thirdPersonCam.enabled = false;
+                    break;
+                case cameraView.ThirdPerson:
+                    thirdPersonCam.enabled = true;
+
+                    freeLookCam.enabled = false;
+                    firstPersonCam.enabled = false;
+                    break;
+            }
+        }
+
+        // Jump Input
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded) { StartCoroutine(Jump(jumpDelay)); }
+
+        // Run Input
+        float running = Mathf.SmoothDamp(currentSpeed, runSpeed, ref runSmoothVelocity, runSmoothTime);
+        float walking = currentSpeed > walkSpeed ? Mathf.SmoothDamp(currentSpeed, walkSpeed, ref walkSmoothVelocity, walkSmoothTime) : walkSpeed;
+        currentSpeed = Input.GetKey(KeyCode.LeftShift) ? running : walking;
     }
 
     private void ApplyForces()
     {
-        Vector3 move = ThirdPersonMovements(moveDir) * speed * Time.deltaTime;
-
+        Vector3 move = CameraRelativeMovements(moveDir) * currentSpeed * Time.deltaTime;
         move.y = fallVelocity;
-
         rgb.velocity = move;
     }
 
-    private Vector3 ThirdPersonMovements(Vector3 moveDirection)
+    private Vector3 CameraRelativeMovements(Vector3 moveDirection)
     {
         Vector3 forward = mainCamera.transform.forward;
         Vector3 right = mainCamera.transform.right;
@@ -79,14 +139,21 @@ public class Movement : MonoBehaviour
 
         Vector3 cameraRelativeMovement = forwardRelativeVerticalInput + rightRelativeHorizontalInput;
 
-        if (moveDirection.magnitude >= 0.01f)
-        {
-            float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-        }
+        if (currentView == cameraView.FreeLook && moveDirection.magnitude >= 0.01f) { PlayerForwardToCamera(moveDirection, cameraView.FreeLook); }
+        else if (currentView == cameraView.FirstPerson) { PlayerForwardToCamera(moveDirection, cameraView.FirstPerson); }
+        else if (currentView == cameraView.ThirdPerson) { PlayerForwardToCamera(moveDirection, cameraView.ThirdPerson); }
 
         return cameraRelativeMovement.normalized;
+    }
+
+    private void PlayerForwardToCamera(Vector3 moveDirection, cameraView camState)
+    {
+        float horizontal = camState == cameraView.FirstPerson ? 0 : moveDirection.x;
+        float vertical = camState == cameraView.ThirdPerson || camState == cameraView.FirstPerson ? Mathf.Abs(moveDirection.z) : moveDirection.z;
+
+        float targetAngle = Mathf.Atan2(horizontal, vertical) * Mathf.Rad2Deg + mainCamera.transform.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
     }
 
     private void FallVelocity()
