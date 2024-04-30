@@ -2,8 +2,12 @@ using Cinemachine;
 using System.Collections;
 using UnityEngine;
 
+/*
+ * - on land make it so he cant move
+ */
+
 [RequireComponent(typeof(Rigidbody))]
-public class Movement : MonoBehaviour
+public class Movement : AnimatorBrain
 {
     [Header("Camera Views")]
     [SerializeField] private cameraView currentView = cameraView.FreeLook;
@@ -31,8 +35,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpDelay = 0.0f;
 
     [Header("GroundCheck")]
-    [SerializeField] private bool isGrounded = false;
-    [Space(10)]
     [SerializeField] private float groundCheckHeight = -1.0f;
     [SerializeField] private float groundCheckRadius = 0.25f;
     [SerializeField] private LayerMask groundLayer;
@@ -52,9 +54,27 @@ public class Movement : MonoBehaviour
     [SerializeField] private CinemachineFreeLook thirdPersonCam;
     [SerializeField] private Rigidbody rgb;
     private Vector3 moveDir;
+    public static Movement instance;
+
+    //private readonly Animations[] idleAnimatiions =
+    //{
+    //    // Add all extra idle animations here
+    //    Animations.Idle,
+    //};
+    //private int currentIdle = 0;
+
+    private const int UPPERBODY = 0;
+    private const int LOWERBODY = 1;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
+        Initialize(GetComponent<Animator>().layerCount, Animations.NONE, GetComponent<Animator>(), DefaultAnimation);
+        
         rgb = GetComponent<Rigidbody>();
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -64,6 +84,16 @@ public class Movement : MonoBehaviour
         freeLookCam.enabled = true;
         firstPersonCam.enabled = false;
         thirdPersonCam.enabled = false;
+
+        //IEnumerator ChangeIdle()
+        //{
+        //    while (true)
+        //    {
+        //        yield return new WaitForSeconds(2);
+        //        currentIdle++;
+        //        if (currentIdle >= idleAnimatiions.Length) { currentIdle = 0; }
+        //    }
+        //}
     }
 
     private void Update()
@@ -71,6 +101,9 @@ public class Movement : MonoBehaviour
         MovementControls();
         GroundCheck();
         FallVelocity();
+
+        CheckTopAnimation();
+        CheckBottomAnimation();
     }
 
     private void FixedUpdate()
@@ -112,13 +145,41 @@ public class Movement : MonoBehaviour
         }
 
         // Jump Input
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) { StartCoroutine(Jump(jumpDelay)); }
+        if (Input.GetKeyDown(KeyCode.Space) && Grounded) { StartCoroutine(Jump(jumpDelay)); }
 
         // Run Input
         float running = Mathf.SmoothDamp(currentSpeed, runSpeed, ref runSmoothVelocity, runSmoothTime);
         float walking = currentSpeed > walkSpeed ? Mathf.SmoothDamp(currentSpeed, walkSpeed, ref walkSmoothVelocity, walkSmoothTime) : walkSpeed;
         currentSpeed = Input.GetKey(KeyCode.LeftShift) ? running : walking;
     }
+
+    #region Animations
+    private void CheckTopAnimation()
+    {
+        CheckMovementAnimations(UPPERBODY);
+    }
+
+    private void CheckBottomAnimation()
+    {
+        CheckMovementAnimations(LOWERBODY);
+    }
+
+    private void CheckMovementAnimations(int layer)
+    {
+        if (moveDir.z > 0) { Play(Animations.Walking, layer, false, false); }
+        else if (moveDir.z < 0) { Play(Animations.WalkingBackWard, layer, false, false); }
+        else if (moveDir.x > 0) { Play(Animations.WalkingLeft, layer, false, false); }
+        else if (moveDir.x < 0) { Play(Animations.WalkingRight, layer, false, false); }
+        else { Play(Animations.Idle, layer, false, false); }
+        //else { Play(idleAnimatiions[currentIdle], layer, false, false); }
+    }
+
+    private void DefaultAnimation(int layer)
+    {
+        if (layer == UPPERBODY) { CheckTopAnimation(); }
+        else {  CheckBottomAnimation(); }
+    }
+    #endregion
 
     private void ApplyForces()
     {
@@ -158,23 +219,26 @@ public class Movement : MonoBehaviour
 
     private void FallVelocity()
     {
-        fallVelocity = isGrounded && fallVelocity < 0 ? gravityWhileGrounded : fallVelocity += gravity * gravityMultiplier * Time.deltaTime;
+        fallVelocity = Grounded && fallVelocity < 0 ? gravityWhileGrounded : fallVelocity += gravity * gravityMultiplier * Time.deltaTime;
     }
 
     private IEnumerator Jump(float delay)
     {
+        Play(Animations.Jumping, UPPERBODY, true, false, 0.05f);
+        Play(Animations.Jumping, LOWERBODY, true, false, 0.05f);
+
         yield return new WaitForSeconds(delay);
 
-        fallVelocity += jumpPower; print("gravity jump");
+        fallVelocity += jumpPower;
     }
 
     private void GroundCheck()
     {
-        bool groundBool = isGrounded;
+        bool groundBool = Grounded;
 
-        isGrounded = Physics.CheckSphere(transform.position + (Vector3.up * groundCheckHeight), groundCheckRadius, groundLayer);
+        Grounded = Physics.CheckSphere(transform.position + (Vector3.up * groundCheckHeight), groundCheckRadius, groundLayer);
 
-        if (groundBool != isGrounded) // maybe add fallVelocity <= 0 to happen only once
+        if (groundBool != Grounded) // maybe add fallVelocity <= 0 to happen only once
         {
             if (seeConsoleFallVelocityOnLand && fallVelocity <= 0) { print("Fall Velocity: " + fallVelocity); }
         }

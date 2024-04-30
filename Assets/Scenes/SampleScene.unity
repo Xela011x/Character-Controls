@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 263551034}
   - component: {fileID: 263551033}
   - component: {fileID: 263551035}
+  - component: {fileID: 263551036}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -547,8 +548,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentView: 0
   turnSmoothTime: 0.15
-  speed: 250
-  jumpPower: 10
+  runSmoothTime: 0.5
+  walkSmoothTime: 0.15
+  currentSpeed: 0
+  walkSpeed: 250
+  runSpeed: 500
+  jumpPower: 11
   jumpDelay: 0
   isGrounded: 0
   groundCheckHeight: -0.75
@@ -588,6 +593,27 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &263551036
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 263551031}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 81bb9eea30387e442899949a80011e55, type: 3}
+  m_Controller: {fileID: 9100000, guid: 09928d4090a42264b8afaf973b1b6205, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -3070,7 +3096,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450652769173909}
-  - component: {fileID: 5866666020944419823}
   - component: {fileID: 5866666020944419824}
   m_Layer: 0
   m_Name: Banana Man
@@ -4362,27 +4387,6 @@ Transform:
   - {fileID: 984022808494004316}
   m_Father: {fileID: 7068967390330300069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &5866666020944419823
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132149053037359}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 81bb9eea30387e442899949a80011e55, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &5866666020944419824
 MonoBehaviour:
   m_ObjectHideFlags: 0

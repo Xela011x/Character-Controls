@@ -1,0 +1,202 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LowerBody
+  m_Mask: 01000000000000000000000001000000010000000000000000000000000000000000000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/Hips
+    m_Weight: 1
+  - m_Path: Armature/Hips/Left Thigh
+    m_Weight: 1
+  - m_Path: Armature/Hips/Left Thigh/Left Leg
+    m_Weight: 1
+  - m_Path: Armature/Hips/Left Thigh/Left Leg/Left Foot
+    m_Weight: 1
+  - m_Path: Armature/Hips/Left Thigh/Left Leg/Left Foot/Left Toes
+    m_Weight: 1
+  - m_Path: Armature/Hips/Left Thigh/Left Leg/Left Foot/Left Toes/Left Toes_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Right Thigh
+    m_Weight: 1
+  - m_Path: Armature/Hips/Right Thigh/Right Leg
+    m_Weight: 1
+  - m_Path: Armature/Hips/Right Thigh/Right Leg/Right Foot
+    m_Weight: 1
+  - m_Path: Armature/Hips/Right Thigh/Right Leg/Right Foot/Right Toes
+    m_Weight: 1
+  - m_Path: Armature/Hips/Right Thigh/Right Leg/Right Foot/Right Toes/Right Toes_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Index 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Index 1/Left Hand Index 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Index 1/Left Hand Index 2/Left Hand Index 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Index 1/Left Hand Index 2/Left Hand Index 3/Left Hand Index
+      3_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Middle 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Middle 1/Left Hand Middle 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Middle 1/Left Hand Middle 2/Left Hand Middle 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Middle 1/Left Hand Middle 2/Left Hand Middle 3/Left Hand Middle
+      3_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Pinky 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Pinky 1/Left Hand Pinky 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Pinky 1/Left Hand Pinky 2/Left Hand Pinky 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Pinky 1/Left Hand Pinky 2/Left Hand Pinky 3/Left Hand Pinky
+      3_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Ring 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Ring 1/Left Hand Ring 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Ring 1/Left Hand Ring 2/Left Hand Ring 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Ring 1/Left Hand Ring 2/Left Hand Ring 3/Left Hand Ring 3_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Thumb 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Thumb 1/Left Hand Thumb 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Thumb 1/Left Hand Thumb 2/Left Hand Thumb 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Left Shoulder/Left Arm/Left Forearm/Left
+      Hand/Left Hand Thumb 1/Left Hand Thumb 2/Left Hand Thumb 3/Left Hand Thumb
+      3_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Neck
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Neck/Head
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Neck/Head/Head_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Index 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Index 1/Right Hand Index 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Index 1/Right Hand Index 2/Right Hand Index 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Index 1/Right Hand Index 2/Right Hand Index 3/Right
+      Hand Index 3_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Middle 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Middle 1/Right Hand Middle 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Middle 1/Right Hand Middle 2/Right Hand Middle
+      3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Middle 1/Right Hand Middle 2/Right Hand Middle
+      3/Right Hand Middle 3_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Pinky 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Pinky 1/Right Hand Pinky 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Pinky 1/Right Hand Pinky 2/Right Hand Pinky 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Pinky 1/Right Hand Pinky 2/Right Hand Pinky 3/Right
+      Hand Pinky 3_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Ring 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Ring 1/Right Hand Ring 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Ring 1/Right Hand Ring 2/Right Hand Ring 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Ring 1/Right Hand Ring 2/Right Hand Ring 3/Right
+      Hand Ring 3_end
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Thumb 1
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Thumb 1/Right Hand Thumb 2
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Thumb 1/Right Hand Thumb 2/Right Hand Thumb 3
+    m_Weight: 1
+  - m_Path: Armature/Hips/Spine 1/Spine 2/Spine 3/Right Shoulder/Right Arm/Right
+      Forearm/Right Hand/Right Hand Thumb 1/Right Hand Thumb 2/Right Hand Thumb 3/Right
+      Hand Thumb 3_end
+    m_Weight: 1
+  - m_Path: Body
+    m_Weight: 1
+  - m_Path: Joints
+    m_Weight: 1
