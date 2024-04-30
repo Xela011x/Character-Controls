@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class ThirdPersonMovement : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     [Header("Movements")]
     [SerializeField] private float turnSmoothTime = 0.15f;
@@ -11,7 +11,7 @@ public class ThirdPersonMovement : MonoBehaviour
     [SerializeField] private float jumpDelay = 0.0f;
 
     [Header("GroundCheck")]
-    [SerializeField] private bool grounded = false;
+    [SerializeField] private bool isGrounded = false;
     [Space(10)]
     [SerializeField] private float groundCheckHeight = -1.0f;
     [SerializeField] private float groundCheckRadius = 0.25f;
@@ -19,6 +19,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     [Header("Gravity Settings")]
     [SerializeField] private bool seeConsoleFallVelocityOnLand = false;
+    [Space(10)]
     [SerializeField] private float gravityMultiplier = 2.0f;
     [SerializeField] private float gravityWhileGrounded = -3.0f;
     [SerializeField] private float fallVelocity;
@@ -54,7 +55,7 @@ public class ThirdPersonMovement : MonoBehaviour
     {
         moveDir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        if (Input.GetKeyDown(KeyCode.Space) && grounded) { StartCoroutine(Jump(jumpDelay)); }
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) { StartCoroutine(Jump(jumpDelay)); }
     }
 
     private void ApplyForces()
@@ -88,9 +89,9 @@ public class ThirdPersonMovement : MonoBehaviour
         return cameraRelativeMovement.normalized;
     }
 
-    public void FallVelocity()
+    private void FallVelocity()
     {
-        fallVelocity = grounded && fallVelocity < 0 ? gravityWhileGrounded : fallVelocity += gravity * gravityMultiplier * Time.deltaTime;
+        fallVelocity = isGrounded && fallVelocity < 0 ? gravityWhileGrounded : fallVelocity += gravity * gravityMultiplier * Time.deltaTime;
     }
 
     private IEnumerator Jump(float delay)
@@ -102,11 +103,11 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void GroundCheck()
     {
-        bool groundBool = grounded;
+        bool groundBool = isGrounded;
 
-        grounded = Physics.CheckSphere(transform.position + (Vector3.up * groundCheckHeight), groundCheckRadius, groundLayer);
+        isGrounded = Physics.CheckSphere(transform.position + (Vector3.up * groundCheckHeight), groundCheckRadius, groundLayer);
 
-        if (groundBool != grounded)
+        if (groundBool != isGrounded) // maybe add fallVelocity <= 0 to happen only once
         {
             if (seeConsoleFallVelocityOnLand && fallVelocity <= 0) { print("Fall Velocity: " + fallVelocity); }
         }
@@ -115,8 +116,7 @@ public class ThirdPersonMovement : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         // GroundCheck visuals
-        Gizmos.color = Color.yellow;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position + (Vector3.up * groundCheckHeight), groundCheckRadius);
-
     }
 }
