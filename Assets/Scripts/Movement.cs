@@ -151,6 +151,10 @@ public class Movement : AnimatorBrain
         float running = Mathf.SmoothDamp(currentSpeed, runSpeed, ref runSmoothVelocity, runSmoothTime);
         float walking = currentSpeed > walkSpeed ? Mathf.SmoothDamp(currentSpeed, walkSpeed, ref walkSmoothVelocity, walkSmoothTime) : walkSpeed;
         currentSpeed = Input.GetKey(KeyCode.LeftShift) ? running : walking;
+
+        // For Testing Purposes
+
+        if (Input.GetKeyDown(KeyCode.L)) { transform.position = Vector3.up * 100; }
     }
 
     #region Animations
@@ -166,11 +170,24 @@ public class Movement : AnimatorBrain
 
     private void CheckMovementAnimations(int layer)
     {
-        if (moveDir.z > 0) { Play(Animations.Walking, layer, false, false); }
-        else if (moveDir.z < 0) { Play(Animations.WalkingBackWard, layer, false, false); }
-        else if (moveDir.x > 0) { Play(Animations.WalkingLeft, layer, false, false); }
-        else if (moveDir.x < 0) { Play(Animations.WalkingRight, layer, false, false); }
-        else { Play(Animations.Idle, layer, false, false); }
+        if (currentView == cameraView.FreeLook)
+        {
+            if (fallVelocity < 0 && !Grounded) { Play(Animations.Falling, layer, false, false, 0.1f); }
+            else if (moveDir.z != 0) { Play(Animations.Walking, layer, false, false); }
+            else if (moveDir.x < 0) { Play(Animations.WalkingRight, layer, false, false); }
+            else if (moveDir.x > 0) { Play(Animations.WalkingLeft, layer, false, false); }
+            else { Play(Animations.Idle, layer, false, false); }
+        }
+        else if (currentView == cameraView.FirstPerson || currentView == cameraView.ThirdPerson)
+        {
+            if (fallVelocity < 0 && !Grounded) { Play(Animations.Falling, layer, false, false, 0.1f); }
+            else if (moveDir.z > 0) { Play(Animations.Walking, layer, false, false); }
+            else if (moveDir.z < 0) { Play(Animations.WalkingBackWard, layer, false, false); }
+            else if (moveDir.x > 0) { Play(Animations.WalkingLeft, layer, false, false); }
+            else if (moveDir.x < 0) { Play(Animations.WalkingRight, layer, false, false); }
+            else { Play(Animations.Idle, layer, false, false); }
+        }
+        
         //else { Play(idleAnimatiions[currentIdle], layer, false, false); }
     }
 
