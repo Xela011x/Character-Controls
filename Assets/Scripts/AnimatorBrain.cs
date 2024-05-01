@@ -83,7 +83,7 @@ public enum Animations
     //List Animations here
     Idle,
     Walking,
-    WalkingBackWard,
+    WalkingBackward,
     WalkingLeft,
     WalkingRight,
     Running,

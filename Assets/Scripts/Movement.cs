@@ -40,7 +40,7 @@ public class Movement : AnimatorBrain
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Gravity Settings")]
-    [SerializeField] private bool seeConsoleFallVelocityOnLand = false;
+    [SerializeField] private bool ConsoleFallVelocityLand = false;
     [Space(10)]
     [SerializeField] private float gravityMultiplier = 2.0f;
     [SerializeField] private float gravityWhileGrounded = -3.0f;
@@ -173,18 +173,24 @@ public class Movement : AnimatorBrain
         if (currentView == cameraView.FreeLook)
         {
             if (fallVelocity < 0 && !Grounded) { Play(Animations.Falling, layer, false, false, 0.1f); }
-            else if (moveDir.z != 0) { Play(Animations.Walking, layer, false, false); }
-            else if (moveDir.x < 0) { Play(Animations.WalkingRight, layer, false, false); }
-            else if (moveDir.x > 0) { Play(Animations.WalkingLeft, layer, false, false); }
+
+            else if ((moveDir.z != 0 || moveDir.x != 0) && currentSpeed <= walkSpeed + 5f) { Play(Animations.Walking, layer, false, false); }
+            else if ((moveDir.z != 0 || moveDir.x != 0) && currentSpeed > walkSpeed + 5f) { Play(Animations.Running, layer, false, false); }
             else { Play(Animations.Idle, layer, false, false); }
         }
         else if (currentView == cameraView.FirstPerson || currentView == cameraView.ThirdPerson)
         {
             if (fallVelocity < 0 && !Grounded) { Play(Animations.Falling, layer, false, false, 0.1f); }
-            else if (moveDir.z > 0) { Play(Animations.Walking, layer, false, false); }
-            else if (moveDir.z < 0) { Play(Animations.WalkingBackWard, layer, false, false); }
-            else if (moveDir.x > 0) { Play(Animations.WalkingLeft, layer, false, false); }
-            else if (moveDir.x < 0) { Play(Animations.WalkingRight, layer, false, false); }
+
+            else if (moveDir.z > 0 && currentSpeed <= walkSpeed + 5f) { Play(Animations.Walking, layer, false, false); }
+            else if (moveDir.z < 0 && currentSpeed <= walkSpeed + 5f) { Play(Animations.WalkingBackward, layer, false, false); }
+            else if (moveDir.x > 0 && currentSpeed <= walkSpeed + 5f) { Play(Animations.WalkingLeft, layer, false, false); }
+            else if (moveDir.x < 0 && currentSpeed <= walkSpeed + 5f) { Play(Animations.WalkingRight, layer, false, false); }
+
+            else if (moveDir.z > 0 && currentSpeed > walkSpeed + 5f) { Play(Animations.Running, layer, false, false); }
+            else if (moveDir.z < 0 && currentSpeed > walkSpeed + 5f) { Play(Animations.RunningBackward, layer, false, false); }
+            else if (moveDir.x > 0 && currentSpeed > walkSpeed + 5f) { Play(Animations.RunningLeft, layer, false, false); }
+            else if (moveDir.x < 0 && currentSpeed > walkSpeed + 5f) { Play(Animations.RunningRight, layer, false, false); }
             else { Play(Animations.Idle, layer, false, false); }
         }
         
@@ -257,7 +263,7 @@ public class Movement : AnimatorBrain
 
         if (groundBool != Grounded) // maybe add fallVelocity <= 0 to happen only once
         {
-            if (seeConsoleFallVelocityOnLand && fallVelocity <= 0) { print("Fall Velocity: " + fallVelocity); }
+            if (ConsoleFallVelocityLand && fallVelocity <= 0) { print("Fall Velocity: " + fallVelocity); }
         }
     }
 
