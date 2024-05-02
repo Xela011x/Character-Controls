@@ -11,7 +11,6 @@ public class Movement : AnimatorBrain
 {
     [Header("Camera Views")]
     [SerializeField] private cameraView currentView = cameraView.FreeLook;
-    private int number;
     private enum cameraView
     {
         FreeLook,
@@ -19,6 +18,7 @@ public class Movement : AnimatorBrain
         ThirdPerson,
         TOTAL_ENUM
     }
+    private int number;
 
     [Header("Movements")]
     [SerializeField] private float turnSmoothTime = 0.15f;
@@ -49,6 +49,7 @@ public class Movement : AnimatorBrain
 
     [Header("Others")]
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private Animator animator;
     [SerializeField] private CinemachineFreeLook freeLookCam;
     [SerializeField] private CinemachineVirtualCamera firstPersonCam;
     [SerializeField] private CinemachineFreeLook thirdPersonCam;
@@ -73,7 +74,7 @@ public class Movement : AnimatorBrain
 
     private void Start()
     {
-        Initialize(GetComponent<Animator>().layerCount, Animations.NONE, GetComponent<Animator>(), DefaultAnimation);
+        Initialize(animator.layerCount, Animations.NONE, animator, DefaultAnimation);
         
         rgb = GetComponent<Rigidbody>();
 
