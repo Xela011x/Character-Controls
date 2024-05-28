@@ -4,6 +4,24 @@
 using UnityEngine;
 using System;
 
+public enum Animations
+{
+    //List Animations here
+    Idle,
+    Walking,
+    WalkingBackward,
+    WalkingLeft,
+    WalkingRight,
+    Running,
+    RunningBackward,
+    RunningLeft,
+    RunningRight,
+    Jumping,
+    Falling,
+    Landing,
+    NONE
+}
+
 public class AnimatorBrain : MonoBehaviour
 {
     private readonly static int[] animations =
@@ -76,22 +94,4 @@ public class AnimatorBrain : MonoBehaviour
         currentAnimation[layer] = animation;
         animator.CrossFade(animations[(int)currentAnimation[layer]], crossfade, layer);
     }
-}
-
-public enum Animations
-{
-    //List Animations here
-    Idle,
-    Walking,
-    WalkingBackward,
-    WalkingLeft,
-    WalkingRight,
-    Running,
-    RunningBackward,
-    RunningLeft,
-    RunningRight,
-    Jumping,
-    Falling,
-    Landing,
-    NONE
 }
